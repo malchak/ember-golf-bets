@@ -36,6 +36,20 @@ App.RoundsController = Ember.ArrayController.extend({
 
 	inTheRed: false,
 
+	wins: function(){
+		var arr = this.filter(function(round){
+			return round.get('winnings') > 0;
+		});
+		return arr;
+	}.property('@each'),
+
+	losses: function(){
+		var arr = this.filter(function(round){
+			return round.get('winnings') < 0;
+		});
+		return arr;
+	}.property('@each'),
+
 	sum: function(arr){
 		total = 0
 		for(var i = 0; i < arr.length; i++){total = total + arr[i];}
@@ -47,31 +61,19 @@ App.RoundsController = Ember.ArrayController.extend({
 	}.property('@each'),
 
 	totalWinningRounds: function(){
-		var content = this.filter(function(round){
-			return round.get('winnings') > 0;
-		});
-		return content.get('length');
-	}.property('@each.winnings'),
+		return this.get('wins').get('length');
+	}.property('wins'),
 
 	totalLosingRounds: function(){
-		var content = this.filter(function(round){
-			return round.get('winnings') < 0;
-		});
-		return content.get('length');
-	}.property('@each.winnings'),
+		return this.get('losses').get('length');
+	}.property('losses'),
 
 	amountWon: function(){
-		var array = this.filter(function(round){
-			return round.get('winnings') > 0;
-		});
-		return this.sum(array.mapProperty('winnings'));
-	}.property('@each'),
+		return this.sum(this.get('wins').mapProperty('winnings'));
+	}.property('wins'),
 
 	amountLost: function(){
-		var content = this.filter(function(round){
-			return round.get('winnings') < 0;
-		});
-		return this.sum(content.mapProperty('winnings'));
+		return this.sum(this.get('losses').mapProperty('winnings'));
 	}.property('@each'),
 	
 	netWinnings: function(){
@@ -81,8 +83,16 @@ App.RoundsController = Ember.ArrayController.extend({
 		else
 			{this.set('inTheRed', false);}
 		return netAmount;
-	}.property('amountWon', 'amountLost')
-	
+	}.property('amountWon', 'amountLost'),
+
+	avgWin: function(){
+		return parseInt(this.get('amountWon') / this.get('totalWinningRounds'));
+	}.property('amountWon', 'totalWinningRounds'),
+
+	avgLoss: function(){
+		return parseInt(this.get('amountLost') / this.get('totalLosingRounds'));
+	}.property()
+
 });
 
 
