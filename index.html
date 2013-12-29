@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Golf Winnings</title>
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <script type="text/x-handlebars">
+    <h2>Welcome to emberGolfWinnings</h2>
+    {{#link-to 'index'}}Home{{/link-to}}
+    {{#link-to 'rounds'}}Winnings{{/link-to}}
+    {{outlet}}
+  </script>
+
+  <script type="text/x-handlebars" id="index">
+    <h4>Home Page</h4>
+  </script>
+
+  <script type="text/x-handlebars" data-template-name="rounds">
+    <h4>Total winnings</h4>
+    {{input value=winnings action="add" placeholder="enter winnings, ie. 15 or -9"}} <button {{action 'add'}}>Add to Total</button>
+    <ul>
+      {{#each}}
+        <li>{{winnings}}</li>
+      {{else}}
+        <p>no winnings</p>
+      {{/each}}
+    </ul>
+    <p>Rounds Played: {{totalRounds}}</p>
+    <p>Total Winning Rounds: {{totalWinningRounds}}</p>
+    <p>Total Losing Rounds: {{totalLosingRounds}}</p>
+    <hr>
+    <p>Amount Won: ${{amountWon}}</p>
+    <p>Amount Lost: ${{amountLost}}</p>
+    <p {{bind-attr class="inTheRed"}}>Net Winnings: ${{netWinnings}}</p>
+
+  </script>
+
+  <script src="js/libs/jquery-1.10.2.js"></script>
+  <script src="js/libs/handlebars-1.1.2.js"></script>
+  <script src="js/libs/ember-1.2.0.js"></script>
+  <script src="http://builds.emberjs.com/beta/ember-data.js"></script>
+  <script src="js/libs/lsadapter.js"></script>
+  <script src="js/app.js"></script>
+  <!-- to activate the test runner, add the "?test" query string parameter -->
+  <script src="tests/runner.js"></script>
+</body>
+</html>
