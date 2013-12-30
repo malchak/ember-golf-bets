@@ -19,6 +19,9 @@ App.RoundsRoute = Ember.Route.extend({
 });
 
 App.RoundsController = Ember.ArrayController.extend({
+	inTheRed: false,
+	isVisible: false,
+
 	actions: {
 		add: function(){
 			var winnings = this.get('winnings');
@@ -34,11 +37,12 @@ App.RoundsController = Ember.ArrayController.extend({
 		cancel: function(){
 			this.get('content').deleteRecord('round');
 			this.transitionToRoute('rounds');
+		},
+		toggle: function(){
+			this.toggleProperty('isVisible');
 		}
 	},
-
-	inTheRed: false,
-
+	
 	wins: function(){
 		var arr = this.filter(function(round){
 			return round.get('winnings') > 0;
@@ -118,6 +122,6 @@ App.RoundsController = Ember.ArrayController.extend({
 	}.property('@each')
 });
 
-
+App.RoundView = Ember.View.extend({});
 
 

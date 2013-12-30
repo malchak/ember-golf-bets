@@ -26,7 +26,13 @@
         <p>No rounds entered yet.</p>
       {{/each}}
     </ul>
-    <p>{{input value=winnings action="add" placeholder="input winnings, ie. 15 or -9"}}</p>
+    <div>
+      <a href="#" {{action 'toggle'}}>Add New Round</a>
+    </div>
+    {{#view App.RoundView isVisibleBinding="isVisible"}}
+      <p>{{input value=winnings action="add" placeholder="input winnings, ie. 15 or -9"}}</p>
+      <a href="#" {{action 'toggle'}}>Cancel</a>
+    {{/view}}
     <p>Rounds Played: {{totalRounds}}</p>
     <p>Total Winning Rounds: {{totalWinningRounds}}</p>
     <p>Total Losing Rounds: {{totalLosingRounds}}</p>
