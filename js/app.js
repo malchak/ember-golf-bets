@@ -2,21 +2,18 @@ App = Ember.Application.create();
 
 App.ApplicationAdapter = DS.LSAdapter;
 
+App.Router.map(function() {
+  this.resource('rounds',{path: "/rounds"});
+});
+
 App.Round = DS.Model.extend({
 	winnings: DS.attr('number'),
 	datePlayed: DS.attr('date')
 });
 
-App.Router.map(function() {
-  this.resource('rounds');
-});
-
 App.RoundsRoute = Ember.Route.extend({
 	model: function(){
 		return this.store.find('round');
-	},
-	setupController: function(controller, model){
-		controller.set('content', model);
 	}
 });
 
@@ -101,7 +98,18 @@ App.RoundsController = Ember.ArrayController.extend({
 	worstLoss: function(){
 		var sortedLosses = this.get('losses').mapProperty('winnings').sort();
 		return sortedLosses.get('lastObject');
-	}.property('losses')
+	}.property('losses'),
+
+	trending: function(){
+		var round = this.filter(function(round){return round;});
+		var allWinnings = round.mapProperty('winnings').slice(-3);
+		if (this.sum(allWinnings) > 0)
+			{ return 'Up';}
+		else if (this.sum(allWinnings) < 0)
+			{return 'Down';}
+		else
+			{return "Trending even"}
+	}.property('@each')
 
 });
 

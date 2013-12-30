@@ -14,8 +14,8 @@
     {{outlet}}
   </script>
 
-  <script type="text/x-handlebars" id="index">
-    <h4>Home Page</h4>
+  <script type="text/x-handlebars" data-template-name="index">
+    <h4>Home Page</h4>  
   </script>
 
   <script type="text/x-handlebars" data-template-name="rounds">
@@ -38,6 +38,7 @@
     <p>Average Loss: ${{avgLoss}}</p>
     <p>Largest Win: ${{largestWin}}</p>
     <p>Worst Loss: ${{worstLoss}}</p>
+    <p>Trending: {{trending}}</p>
   </script>
 
   <script src="js/libs/jquery-1.10.2.js"></script>
