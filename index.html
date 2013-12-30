@@ -19,7 +19,8 @@
   </script>
 
   <script type="text/x-handlebars" data-template-name="rounds">
-    <p>{{input value=winnings action="add" placeholder="input winnings, ie. 15 or -9"}}<p>
+    {{#link-to 'rounds.new'}}New{{/link-to}}
+    <p>{{outlet}}</p>
     <ul>
       {{#each}}
         <li>{{winnings}}</li>
@@ -39,6 +40,10 @@
     <p>Largest Win: ${{largestWin}}</p>
     <p>Worst Loss: ${{worstLoss}}</p>
     <p>Trending: {{trending}}</p>
+  </script>
+
+  <script type="text/x-handlebars" data-template-name="rounds/new">
+    <p>{{input value=winnings action="add" placeholder="input winnings, ie. 15 or -9"}}</p>
   </script>
 
   <script src="js/libs/jquery-1.10.2.js"></script>
