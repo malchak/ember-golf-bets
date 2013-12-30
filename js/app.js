@@ -4,7 +4,6 @@ App.ApplicationAdapter = DS.LSAdapter;
 
 App.Router.map(function() {
   this.resource('rounds', function(){
-  	this.route('new');
   });
 });
 
@@ -20,6 +19,24 @@ App.RoundsRoute = Ember.Route.extend({
 });
 
 App.RoundsController = Ember.ArrayController.extend({
+	actions: {
+		add: function(){
+			var winnings = this.get('winnings');
+			if (!winnings.trim()){return;}
+			var round = this.store.createRecord('round', {
+				winnings: parseInt(winnings),
+				datePlayed: new Date()
+			});
+			round.save()
+			this.set('winnings', '');
+			this.transitionToRoute('rounds');
+		},
+		cancel: function(){
+			this.get('content').deleteRecord('round');
+			this.transitionToRoute('rounds');
+		}
+	},
+
 	inTheRed: false,
 
 	wins: function(){
@@ -100,30 +117,6 @@ App.RoundsController = Ember.ArrayController.extend({
 			{return "Trending even"}
 	}.property('@each')
 });
-
-App.RoundsNewRoute = Ember.Route.extend({
-	model: function(){
-		return this.store.createRecord('round');
-	}
-});
-
-App.RoundsNewController = Ember.ObjectController.extend({
-	actions: {
-		add: function(){
-			var winnings = this.get('winnings');
-			if (!winnings.trim()){return;}
-			var round = this.store.createRecord('round', {
-				winnings: parseInt(winnings),
-				datePlayed: new Date()
-			});
-			round.save()
-			this.set('winnings', '');
-		}
-	}
-});
-
-
-
 
 
 
