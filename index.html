@@ -19,13 +19,12 @@
   </script>
 
   <script type="text/x-handlebars" data-template-name="rounds">
-    <h4>Total winnings</h4>
-    {{input value=winnings action="add" placeholder="enter winnings, ie. 15 or -9"}} <button {{action 'add'}}>Add to Total</button>
+    <p>{{input value=winnings action="add" placeholder="input winnings, ie. 15 or -9"}}<p>
     <ul>
       {{#each}}
         <li>{{winnings}}</li>
       {{else}}
-        <p>no winnings</p>
+        <p>No rounds entered yet.  Input winnings, then hit enter.</p>
       {{/each}}
     </ul>
     <p>Rounds Played: {{totalRounds}}</p>
@@ -37,8 +36,8 @@
     <p {{bind-attr class="inTheRed"}}>Net Winnings: ${{netWinnings}}</p>
     <p>Average Win: ${{avgWin}}</p>
     <p>Average Loss: ${{avgLoss}}</p>
-
-
+    <p>Largest Win: ${{largestWin}}</p>
+    <p>Worst Loss: ${{worstLoss}}</p>
   </script>
 
   <script src="js/libs/jquery-1.10.2.js"></script>

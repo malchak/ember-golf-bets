@@ -91,7 +91,17 @@ App.RoundsController = Ember.ArrayController.extend({
 
 	avgLoss: function(){
 		return parseInt(this.get('amountLost') / this.get('totalLosingRounds'));
-	}.property()
+	}.property('amountLost', 'totalLosingRounds'),
+
+	largestWin: function(){
+		var sortedWins = this.get('wins').mapProperty('winnings').sort();
+		return sortedWins.get('lastObject');
+	}.property('wins'),
+
+	worstLoss: function(){
+		var sortedLosses = this.get('losses').mapProperty('winnings').sort();
+		return sortedLosses.get('lastObject');
+	}.property('losses')
 
 });
 
