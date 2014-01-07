@@ -10,7 +10,7 @@
   <script type="text/x-handlebars">
     <h2>Welcome to emberGolfWinnings</h2>
     {{#link-to 'index'}}Home{{/link-to}}
-    {{#link-to 'rounds'}}Winnings{{/link-to}}
+    {{#link-to 'rounds'}}My Rounds{{/link-to}}
     {{outlet}}
   </script>
 
@@ -27,18 +27,18 @@
       {{/each}}
     </ul>
     <div>
-      <a href="#" {{action 'toggle'}}>Add New Round</a>
+      <a href="#" {{action 'toggleNew'}}>Add Round</a>
     </div>
-    {{#view App.RoundView isVisibleBinding="isVisible"}}
-      <p>{{input value=winnings action="add" placeholder="input winnings, ie. 15 or -9"}}</p>
-      <a href="#" {{action 'toggle'}}>Cancel</a>
+    {{#view App.AddRoundView isVisibleBinding="isVisible"}}
+      <p>{{view Ember.TextField value=winnings action="add" placeholder=placeHolder autofocus=true}}</p>
+      <a href="#" {{action 'toggleNew'}}>Cancel</a>
     {{/view}}
     <p>Rounds Played: {{totalRounds}}</p>
     <p>Total Winning Rounds: {{totalWinningRounds}}</p>
     <p>Total Losing Rounds: {{totalLosingRounds}}</p>
     <hr>
-    <p>Amount Won: ${{amountWon}}</p>
-    <p>Amount Lost: ${{amountLost}}</p>
+    <p>Total Amount Won: ${{totalAmountWon}}</p>
+    <p>Total Amount Lost: ${{totalAmountLost}}</p>
     <p {{bind-attr class="inTheRed"}}>Net Winnings: ${{netWinnings}}</p>
     <p>Average Win: ${{avgWin}}</p>
     <p>Average Loss: ${{avgLoss}}</p>
